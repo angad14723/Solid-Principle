@@ -24,6 +24,7 @@ class NetworkManager: NetworkManagerProtocal{
     
     func fetchNetworkData<T>(url: URL) async throws -> T where T : Decodable {
         
+        print("url :: \(url)")
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
@@ -33,6 +34,8 @@ class NetworkManager: NetworkManagerProtocal{
         guard let decodeData = try? JSONDecoder().decode(T.self, from: data) else {
             throw  NetworkError.DecodingError
         }
+        
+        print("response :: \(decodeData)")
         
         return decodeData
     }

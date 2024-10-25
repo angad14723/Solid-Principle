@@ -22,8 +22,10 @@ class UserService : UserServiceProtocol{
     
     
     func fetchUsers() async throws -> [User] {
+        
         let users =  try await dataManager.fetchUsers()
         
+        print("UserService :: \(users)")
         
         if users.count > 0 {
             return users
